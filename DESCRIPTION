@@ -1,0 +1,19 @@
+Package: RobustRankAggreg
+Type: Package
+Title: Methods for robust rank aggregation
+Version: 1.0
+Date: 2010-11-14
+Author: Raivo Kolde, Sven Laur
+Maintainer: Raivo Kolde <rkolde@gmail.com>
+Description: Methods for aggregating ranked lists, especially lists of
+    genes. It implements the Robust Rank Aggregation (Kolde et. al in
+    preparation) and some other simple algorithms for the task. RRA
+    method uses a probabilistic model for aggregation that is robust to
+    noise and also facilitates the calculation of significance
+    probabilities for all the elements in the final ranking.
+License: GPL-2
+LazyLoad: yes
+Depends:
+    methods
+Collate:
+    'aggregateRanks.R'

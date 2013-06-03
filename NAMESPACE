@@ -1,0 +1,4 @@
+export(aggregateRanks)
+export(betaScores)
+export(rankMatrix)
+export(rhoScores)
