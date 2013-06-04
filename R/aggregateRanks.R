@@ -8,7 +8,7 @@
 #' rankings are given to the function, all the missing values are subtituted by the
 #' maximum rank N, which can be specified manually. This parameter has a very strong
 #' influence on the performance of RRA algorithm, therfore it should be reasonably
-#' accurate. 
+#' accurate. If the N is different for the gene lists, it can be also given as a vector. 
 #' 
 #' Parameter full is used, when full rankings are given, but the sets of ranked elements
 #' do not match perfectly. Then the structurally missing values are substituted with
@@ -33,24 +33,27 @@
 #' 
 #' @export
 rankMatrix <-  function(glist, N = NA, full = FALSE){
-	u <-  unique(c(glist, recursive = TRUE))
+	u = unique(c(glist, recursive = TRUE))
 	
-	if(is.na(N)){
+	if(all(is.na(N))){
 		N = length(u)
 	}
 	if(!full){
-		rmat <- matrix(1, nrow = length(u), ncol = length(glist), dimnames = list(u, names(glist)))
-		N = rep(N, ncol(rmat))
+		rmat = matrix(1, nrow = length(u), ncol = length(glist), dimnames = list(u, names(glist)))
+		if(length(N) == 1){
+			N = rep(N, ncol(rmat))
+		}
 	}
 	else{
-		rmat <- matrix(NA, nrow = length(u), ncol = length(glist), dimnames = list(u, names(glist)))
+		rmat = matrix(NA, nrow = length(u), ncol = length(glist), dimnames = list(u, names(glist)))
 		N = unlist(lapply(glist, length))
 	}
 	for(i in 1:length(glist)){
-		rmat[glist[[i]], i] <- (1:length(glist[[i]])) / N[i]
+		rmat[glist[[i]], i] = (1:length(glist[[i]])) / N[i]
 	}
 	return(rmat)
 }
+
 
 # Output function
 formatOutput <- function(scores, score.names, ordering = "ascending"){
@@ -188,7 +191,8 @@ thresholdBetaScore <- function(r, k = seq_along(r), n = length(r), sigma = rep(1
 
 
 correctBetaPvalues <- function(p, k){
-	p <- pbeta(p, 1, k)
+	p <- min(p * k, 1) 
+	
 	return(p)
 }
 
@@ -229,17 +233,13 @@ rhoScores <- function(r, topCutoff = NA, exact = F){
 		rho <- correctBetaPvaluesExact(min(x, na.rm = T), k = sum(!is.na(x)))
 	}
 	else{
-		rho <- correctBetaPvalues(min(x, na.rm = T), k = length(r))
+		rho <- correctBetaPvalues(min(x, na.rm = T), k = sum(!is.na(x)))
 	}
 	
 	return(rho)
 }
 
-
-
 # The dynamic algorithm for more accurate BetaScore calculation
-
-
 
 
 #' Aggregate ranked lists
@@ -351,7 +351,7 @@ aggregateRanks <-  function(glist, rmat = rankMatrix(glist, N, full = full), N =
 		return(formatOutput(scores = a, score.names = names(a), ordering = "ascending"))
 	}
 	if(method == "geom.mean"){
-		a <-  apply(rmat, 1, function(x) mean(log(x), na.rm = TRUE))
+		a <-  apply(rmat, 1, function(x) exp(mean(log(x), na.rm = TRUE)))
 		return(formatOutput(scores = a, score.names = names(a), ordering = "ascending"))
 	}
 	if(method == "RRA"){

@@ -26,7 +26,8 @@
   maximum rank N, which can be specified manually. This
   parameter has a very strong influence on the performance
   of RRA algorithm, therfore it should be reasonably
-  accurate.
+  accurate. If the N is different for the gene lists, it
+  can be also given as a vector.
 
   Parameter full is used, when full rankings are given, but
   the sets of ranked elements do not match perfectly. Then
