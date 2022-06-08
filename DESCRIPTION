@@ -1,8 +1,8 @@
 Package: RobustRankAggreg
 Type: Package
 Title: Methods for robust rank aggregation
-Version: 1.1
-Date: 2010-11-14
+Version: 1.2
+Date: 2022-06-09
 Author: Raivo Kolde, Sven Laur
 Maintainer: Raivo Kolde <rkolde@gmail.com>
 Description: Methods for aggregating ranked lists, especially lists of
@@ -17,3 +17,4 @@ Depends:
     methods
 Collate:
     'aggregateRanks.R'
+RoxygenNote: 7.1.1

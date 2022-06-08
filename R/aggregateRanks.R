@@ -5,9 +5,9 @@
 #' Convert a set of ranked lists into a rank matrix
 #' 
 #' The lists are converted to a format that is used by aggregateRanks. If partial
-#' rankings are given to the function, all the missing values are subtituted by the
+#' rankings are given to the function, all the missing values are substituted by the
 #' maximum rank N, which can be specified manually. This parameter has a very strong
-#' influence on the performance of RRA algorithm, therfore it should be reasonably
+#' influence on the performance of RRA algorithm, therefore it should be reasonably
 #' accurate. If the N is different for the gene lists, it can be also given as a vector. 
 #' 
 #' Parameter full is used, when full rankings are given, but the sets of ranked elements
@@ -211,7 +211,7 @@ correctBetaPvaluesExact <- function(p, k){
 #' @param r vector of values in [0, 1]
 #' @param topCutoff a vector of cutoff values used to limit the number of elements in the 
 #' input lists
-#' @param exact indicator if exact p-values should be calculated (Warning: it is computationally unstable and does ot give considerable gain)
+#' @param exact indicator if exact p-values should be calculated (Warning: it is computationally unstable and does to give considerable gain)
 #' @references  Kolde et al "Robust Rank Aggregation for gene list integration and 
 #' meta-analysis" (in preparation)
 #' @author  Raivo Kolde <rkolde@@gmail.com>
@@ -260,7 +260,7 @@ rhoScores <- function(r, topCutoff = NA, exact = F){
 #' appropriately. 
 #' 
 #' The function can handle also the case when elements of the different rankings do not 
-#' overlap perfectly. For example if we combine resutls from different microarray 
+#' overlap perfectly. For example if we combine results from different microarray 
 #' platforms with varying coverage. In this case these structurally missing values are 
 #' substituted with NA-s and handled differently than omitted parts of the rankings. 
 #' The function accepts as an input either list of rankings or rank matrix based on them. 
@@ -282,7 +282,7 @@ rhoScores <- function(r, topCutoff = NA, exact = F){
 #' format.
 #' @param N the number of ranked elements, important when using only top-k ranks, by 
 #' default it is calculated as the number of unique elements in the input.
-#' @param method rank aggregation method, by defaylt \code{'RRA'}, other options are 
+#' @param method rank aggregation method, by default \code{'RRA'}, other options are 
 #' \code{'min'}, \code{'geom.mean'}, \code{'mean'}, \code{'median'} and \code{'stuart'} 
 #' @param full indicates if the full rankings are given, used if the the sets of ranked 
 #' elements do not match perfectly
@@ -406,7 +406,9 @@ aggregateRanks <-  function(glist, rmat = rankMatrix(glist, N, full = full), N =
 #' @keywords data
 NULL
 
-
+#' @importFrom stats median pbeta pnorm qbeta
+#' @import methods
+NULL
 
 
 
